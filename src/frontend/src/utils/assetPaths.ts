@@ -17,5 +17,6 @@ export function getAssetPath(path: string): string {
   // Ensure BASE_URL ends with /
   const baseUrl = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
   
+  // Combine base URL with clean path
   return `${baseUrl}${cleanPath}`;
 }

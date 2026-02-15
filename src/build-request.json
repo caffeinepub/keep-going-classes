@@ -1,89 +1,51 @@
 {
   "kind": "build_request",
-  "title": "Set up custom domain compatibility (routing, PWA, and Internet Identity)",
+  "title": "Push Version 7 live and run post-deploy smoke checks",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-17",
-      "text": "Make the frontend work correctly when served from either the root of a custom domain (e.g., https://yourdomain.com) or from a subpath deployment (e.g., https://caffeine.icp0.io/app/keep-going-classes), by ensuring internal navigation and static asset URLs do not rely on absolute root paths.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-setup-custom-domain"
-        ],
-        "quotes": [
-          "Setup custom domain"
-        ]
-      },
-      "acceptanceCriteria": [
-        "All internal navigation (header + footer quick links) works when the app is hosted under a non-root base path (no full-page reloads to the wrong origin/path).",
-        "Logo and other static assets load correctly when the app is hosted under a non-root base path.",
-        "No internal links in the app hardcode absolute root paths (e.g., href=\"/\") in a way that breaks subpath hosting."
-      ]
-    },
-    {
-      "id": "REQ-18",
-      "text": "Update PWA metadata and asset references to be compatible with custom domains and subpath hosting by avoiding hardcoded root-based URLs in frontend/index.html and frontend/public/manifest.webmanifest (including manifest href, icons, and start_url).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-setup-custom-domain"
-        ],
-        "quotes": [
-          "Setup custom domain"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The PWA manifest and icons resolve correctly when the app is served from a custom domain at the root and when served from a subpath.",
-        "Installing the PWA launches into the correct app URL (no 404/blank page) for both hosting modes.",
-        "There are no broken references to /manifest.webmanifest or /assets/... that depend on being hosted at the origin root."
-      ]
-    },
-    {
-      "id": "REQ-19",
-      "text": "Add custom-domain compatibility for Internet Identity by serving a well-known configuration file from the frontend (static asset) that enables the app origin(s) to be used with Internet Identity on a custom domain.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-setup-custom-domain"
-        ],
-        "quotes": [
-          "Setup custom domain"
-        ]
-      },
-      "acceptanceCriteria": [
-        "A well-known file required for Internet Identity custom origins is served at the expected path under /.well-known/ from the frontend static assets.",
-        "The well-known configuration supports the deployed app’s existing origin and can be extended to include the user’s custom domain without code changes beyond updating configuration content.",
-        "Logging in via Internet Identity continues to work on the existing deployment URL and is not regressed by the change."
-      ]
-    },
-    {
-      "id": "REQ-20",
-      "text": "Add a short, user-facing documentation page/file in the repository that explains how to connect a custom domain to the deployed app, including the required DNS records and any Internet Identity-related well-known configuration that must be present on the domain.",
+      "id": "REQ-25",
+      "text": "Promote the currently built Version 7 of the Keep Going Classes app to the live/production environment.",
       "target": "unknown",
       "source": {
         "messageIds": [
-          "msg-setup-custom-domain"
+          "msg-3"
         ],
         "quotes": [
-          "Setup custom domain"
+          "Yes"
         ]
       },
       "acceptanceCriteria": [
-        "Repository contains an English guide describing: (1) what DNS records to add, (2) what domain the app will be served on, and (3) any required .well-known file(s) for Internet Identity and how to verify they are reachable.",
-        "The guide includes a troubleshooting section for common failures (e.g., DNS not propagated, certificate/HTTPS issues, well-known file not reachable)."
+        "Version 7 is live and publicly accessible without deployment errors.",
+        "The live deployment serves the latest frontend and backend canister code for Version 7."
+      ]
+    },
+    {
+      "id": "REQ-26",
+      "text": "After Version 7 is live, perform a basic smoke test on the live environment covering public browsing, admissions submission, and Internet Identity login (including admin-only access control).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Yes"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Public pages load successfully: Home (/), Articles (/articles), Courses & Exams (/courses-exams), YouTube (/youtube), Contact (/contact).",
+        "Submitting the Admissions form (/admissions) succeeds and shows the confirmation/success state.",
+        "Internet Identity login works end-to-end and admin routes remain protected (e.g., /admin, /admin/articles, /admin/admissions)."
       ]
     }
   ],
   "constraints": [
-    "Do not modify files under frontend/src/components/ui (read-only).",
-    "Do not modify immutable frontend hook entrypoints listed in SYSTEM_CONTEXT. Compose around them instead.",
-    "Backend must remain a single Motoko actor; do not introduce additional backend services."
+    "Do not modify any immutable frontend paths listed in SYSTEM_CONTEXT.",
+    "Do not introduce new backend services; keep the single-actor Motoko architecture."
   ],
   "nonGoals": [
-    "Purchasing a domain name on behalf of the user.",
-    "Setting up third-party DNS hosting/provider accounts automatically.",
-    "Adding any non-Internet Identity authentication method."
+    "Adding new product features or changing UI/UX unrelated to deployment.",
+    "Changing article/admissions data models unless required to resolve a deployment blocker."
   ],
   "imageRequirements": {
     "required": [],

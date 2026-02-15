@@ -1,7 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { BookOpen, Award, GraduationCap } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from '@tanstack/react-router';
 
 export default function CoursesExamsPage() {
+  const navigate = useNavigate();
+
   const classes = [
     {
       name: 'Class 9th',
@@ -134,11 +138,13 @@ export default function CoursesExamsPage() {
             <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
               Join Keep Going Classes today and take the first step towards achieving your academic and career goals.
             </p>
-            <a href="/admissions">
-              <button className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors">
-                Apply for Admission
-              </button>
-            </a>
+            <Button 
+              onClick={() => navigate({ to: '/admissions' })}
+              size="lg"
+              className="font-semibold"
+            >
+              Apply for Admission
+            </Button>
           </CardContent>
         </Card>
       </div>

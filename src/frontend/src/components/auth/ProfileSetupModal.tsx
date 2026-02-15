@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useInternetIdentity } from '../../hooks/useInternetIdentity';
 import { useGetCallerUserProfile, useSaveCallerUserProfile } from '../../hooks/useQueries';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -6,9 +6,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { Loader2 } from 'lucide-react';
 
 export default function ProfileSetupModal() {
-  const { identity } = useInternetIdentity();
+  const { identity, isInitializing } = useInternetIdentity();
   const isAuthenticated = !!identity;
   
   const { data: userProfile, isLoading: profileLoading, isFetched } = useGetCallerUserProfile();
@@ -17,7 +18,8 @@ export default function ProfileSetupModal() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
-  const showProfileSetup = isAuthenticated && !profileLoading && isFetched && userProfile === null;
+  // Only show modal if authenticated, not initializing, profile is fetched, and profile is null
+  const showProfileSetup = isAuthenticated && !isInitializing && !profileLoading && isFetched && userProfile === null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,8 +37,11 @@ export default function ProfileSetupModal() {
     try {
       await saveProfileMutation.mutateAsync({ name: name.trim(), email: email.trim() });
       toast.success('Profile created successfully!');
+      setName('');
+      setEmail('');
     } catch (error: any) {
-      toast.error(error.message || 'Failed to save profile');
+      console.error('Profile setup error:', error);
+      toast.error(error.message || 'Failed to save profile. Please try again.');
     }
   };
 
@@ -58,6 +63,7 @@ export default function ProfileSetupModal() {
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter your full name"
               required
+              disabled={saveProfileMutation.isPending}
             />
           </div>
           <div className="space-y-2">
@@ -69,10 +75,18 @@ export default function ProfileSetupModal() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
+              disabled={saveProfileMutation.isPending}
             />
           </div>
           <Button type="submit" className="w-full" disabled={saveProfileMutation.isPending}>
-            {saveProfileMutation.isPending ? 'Saving...' : 'Continue'}
+            {saveProfileMutation.isPending ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              'Continue'
+            )}
           </Button>
         </form>
       </DialogContent>

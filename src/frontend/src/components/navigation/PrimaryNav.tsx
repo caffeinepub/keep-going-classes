@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useRouterState } from '@tanstack/react-router';
-import { Menu, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import LoginButton from '../auth/LoginButton';
@@ -24,6 +24,7 @@ export default function PrimaryNav() {
     { label: 'Contact', path: '/contact' },
   ];
 
+  // Only add Admin link if user is authenticated and is an admin
   if (identity && isAdmin) {
     navItems.push({ label: 'Admin', path: '/admin' });
   }
@@ -54,7 +55,7 @@ export default function PrimaryNav() {
       {/* Mobile Navigation */}
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild className="md:hidden">
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" aria-label="Open menu">
             <Menu className="h-5 w-5" />
           </Button>
         </SheetTrigger>

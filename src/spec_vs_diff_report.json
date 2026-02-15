@@ -1,61 +1,37 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T02:03:17.565Z",
-  "summary": "Diff implements base-path-aware routing and asset URL handling (TanStack Router basepath + asset helper), updates PWA references to be relative, adds an Internet Identity well-known file, and adds a custom-domain setup guide. The guide appears incomplete and lacks the requested troubleshooting section. Several unrelated UI/content changes are also described in the diff summary.",
+  "generatedAt": "2026-02-15T02:33:40.154Z",
+  "summary": "Diff primarily adds Version 7 promotion/smoke-test checklist documentation and makes several frontend changes to auth/admin guarding, login/logout handling, and admissions success UX/testing hooks. There is no evidence in the diff summary of an actual production promotion/deploy or of executed smoke test results against a live environment.",
   "missing_requirements": [
     {
-      "id": "REQ-20",
-      "requirement": "Add a short, user-facing documentation page/file explaining how to connect a custom domain (DNS records, served domain, and any required Internet Identity .well-known file(s) plus how to verify they are reachable), including a troubleshooting section.",
-      "reason": "A guide file was added, but it appears truncated/incomplete (ends at \"Using dfx CLI:\"), does not clearly include the requested troubleshooting section, and does not clearly provide complete Internet Identity well-known verification instructions in the visible content.",
+      "id": "REQ-25",
+      "requirement": "Promote the currently built Version 7 of the Keep Going Classes app to the live/production environment (latest frontend and backend canister code live and publicly accessible).",
+      "reason": "The diff shows only documentation/checklists and frontend code changes; it does not show any deployment configuration, canister upgrades, release/promotion steps executed, or production-target changes that would constitute promoting Version 7 live.",
       "evidence": [
-        "frontend/CUSTOM_DOMAIN_SETUP.md"
+        "frontend/RELEASE_V7_PROMOTION.md",
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "id": "REQ-26",
+      "requirement": "After Version 7 is live, perform a basic smoke test on the live environment covering public browsing, admissions submission, and Internet Identity login (including admin-only access control).",
+      "reason": "A smoke test checklist document was added, but the diff contains no evidence that the smoke test was actually performed on a live environment (e.g., recorded results, logs, CI job run output, or a completed checklist).",
+      "evidence": [
+        "frontend/SMOKE_TEST_V7.md"
       ]
     }
   ],
-  "hallucinated_features": [
-    {
-      "description": "Add a new \"YouTube\" navigation item in the primary navigation.",
-      "reason": "Not requested by REQ-17–REQ-20 (custom domain compatibility, PWA paths, II well-known file, documentation).",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/navigation/PrimaryNav.tsx summary)"
-      ]
-    },
-    {
-      "description": "Update Admissions page program selection to include Class 9th-12th and defence exams (NDA, CDSE, AFCAT, etc.).",
-      "reason": "Not requested by REQ-17–REQ-20.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/pages/Admissions/AdmissionsPage.tsx summary)"
-      ]
-    },
-    {
-      "description": "Update Contact page content and add copy-to-clipboard and deep links for WhatsApp/phone dialer.",
-      "reason": "Not requested by REQ-17–REQ-20.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/pages/Contact/ContactPage.tsx summary)"
-      ]
-    },
-    {
-      "description": "Implement/adjust ProfileSetupModal behavior and admin/auth-related UI/logic changes (modal loading states, admin guards, login button behavior).",
-      "reason": "Not requested by REQ-17–REQ-20.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/auth/ProfileSetupModal.tsx summary)",
-        "frontend-file-summaries.txt (frontend/src/components/auth/AdminGuard.tsx summary)",
-        "frontend-file-summaries.txt (frontend/src/components/auth/LoginButton.tsx summary)"
-      ]
-    }
-  ],
-  "confidence": 0.72,
+  "hallucinated_features": [],
+  "confidence": 0.74,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/CUSTOM_DOMAIN_SETUP.md",
-    "frontend/index.html",
-    "frontend/public/.well-known/ii-alternative-origins",
-    "frontend/public/manifest.webmanifest",
-    "frontend/src/App.tsx",
-    "frontend/src/components/layout/SiteLayout.tsx",
-    "frontend/src/pages/Home/HomePage.tsx",
-    "frontend/src/utils/assetPaths.ts",
+    "frontend/RELEASE_V7_PROMOTION.md",
+    "frontend/SMOKE_TEST_V7.md",
+    "frontend/src/components/auth/AdminGuard.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/pages/Admissions/AdmissionsPage.tsx",
+    "frontend/src/pages/CoursesExams/CoursesExamsPage.tsx",
     "project_state.json"
   ]
 }

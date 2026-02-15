@@ -1,17 +1,21 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 11,
+  "projectStateVersion": 17,
   "summary": "Build a website and mobile app for the YouTube channel “Keep Going Classes” to serve students, share articles, open admissions, and provide contact information.",
   "architectural_notes": [
     "Contact section/page content should include WhatsApp contact numbers: 9889144312 and 9838784245 (label as 'Wapp'/WhatsApp).",
     "Tagline should be: \"PADHAI KA ADDA\".",
     "Update address to: Utelwa Jagdishpur, Musafirkhana, Amethi, Uttar Pradesh, India 227809.",
     "Live site currently shared as: https://caffeine.icp0.io/app/keep-going-classes",
-    "User requested setting up a custom domain to improve accessibility/reach (reduce reliance on icp0.io link)."
+    "User requested setting up a custom domain to improve accessibility/reach (reduce reliance on icp0.io link).",
+    "User approved proceeding to connect the deployed app to a .com custom domain (custom domain connection to be performed).",
+    "User approved pushing Version 7 live (requested to proceed with going live)."
   ],
   "known_issues": [
     "Production deployment reported an internal configuration issue; may require re-run or Caffeine team support.",
-    "Some users/networks encounter \"Canister id not resolved\" when opening the icp0.io URL (likely ISP/network blocking ICP), impacting accessibility."
+    "Some users/networks encounter \"Canister id not resolved\" when opening the icp0.io URL (likely ISP/network blocking ICP), impacting accessibility.",
+    "Custom domain https://keepgoingclasses.com reported as not opening for the user (possible DNS propagation / network caching).",
+    "Production deployment encountered an error while attempting to go live (\"Deployment error\")."
   ],
   "isFixRequest": true,
   "existing_features": [
@@ -172,6 +176,54 @@
       "title": "Add a short, user-facing documentation page/file in the repository that explains how to connect a custom domain to the deployed app, including the required DNS records and any Internet Identity-related well-known configuration that must be present on the domain.",
       "reqIds": [
         "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-internet-identity-alternative-origins-configuration-to-include-the-custom-domain-origins-for-keep-going-classes-so-that-internet-identity-login-works-when-the-app-is-accessed-via-the-custom-domain",
+      "title": "Update the Internet Identity alternative origins configuration to include the custom domain origins for Keep Going Classes so that Internet Identity login works when the app is accessed via the custom domain.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-complete-and-update-the-custom-domain-setup-documentation-to-include-the-missing-registration-steps-e-g-the-exact-dfx-commands-placeholders-and-explicitly-instruct-that-any-custom-domain-s-being-used-must-be-added-to-frontend-public-well-known-ii-alternative-origins-for-internet-identity-compatibility",
+      "title": "Complete and update the custom domain setup documentation to include the missing registration steps (e.g., the exact dfx commands/placeholders), and explicitly instruct that any custom domain(s) being used must be added to frontend/public/.well-known/ii-alternative-origins for Internet Identity compatibility.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-investigate-and-fix-the-production-deployment-failure-so-the-keep-going-classes-app-can-be-successfully-deployed-to-production-without-errors",
+      "title": "Investigate and fix the production deployment failure so the Keep Going Classes app can be successfully deployed to production without errors.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-live-accessibility-via-both-the-custom-domain-and-the-subpath-deployment-url-and-ensure-key-flows-work-on-the-live-environment-public-browsing-admissions-submission-and-internet-identity-login-including-admin-only-access-control",
+      "title": "Verify live accessibility via both the custom domain and the subpath deployment URL, and ensure key flows work on the live environment: public browsing, Admissions submission, and Internet Identity login (including admin-only access control).",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-promote-the-currently-built-version-7-of-the-keep-going-classes-app-to-the-live-production-environment",
+      "title": "Promote the currently built Version 7 of the Keep Going Classes app to the live/production environment.",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-after-version-7-is-live-perform-a-basic-smoke-test-on-the-live-environment-covering-public-browsing-admissions-submission-and-internet-identity-login-including-admin-only-access-control",
+      "title": "After Version 7 is live, perform a basic smoke test on the live environment covering public browsing, admissions submission, and Internet Identity login (including admin-only access control).",
+      "reqIds": [
+        "REQ-26"
       ],
       "version": 1
     }

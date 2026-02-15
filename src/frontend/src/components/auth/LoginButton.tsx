@@ -35,6 +35,7 @@ export default function LoginButton() {
       variant={isAuthenticated ? 'outline' : 'default'}
       size="sm"
       className="gap-2"
+      data-testid="login-button"
     >
       {isAuthenticated ? <LogOut className="h-4 w-4" /> : <LogIn className="h-4 w-4" />}
       <span className="hidden sm:inline">{text}</span>

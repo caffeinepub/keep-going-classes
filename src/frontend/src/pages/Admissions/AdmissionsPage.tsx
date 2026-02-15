@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
-import { GraduationCap, CheckCircle2 } from 'lucide-react';
+import { GraduationCap, CheckCircle2, Loader2 } from 'lucide-react';
 
 export default function AdmissionsPage() {
   const [name, setName] = useState('');
@@ -40,14 +40,15 @@ export default function AdmissionsPage() {
       setProgram('');
       setMotivation('');
     } catch (error: any) {
-      toast.error(error.message || 'Failed to submit application');
+      console.error('Admission submission error:', error);
+      toast.error(error.message || 'Failed to submit application. Please try again.');
     }
   };
 
   if (submitted) {
     return (
       <div className="container py-12 max-w-2xl">
-        <Card className="text-center">
+        <Card className="text-center" data-testid="admissions-success">
           <CardContent className="py-12">
             <CheckCircle2 className="h-16 w-16 text-green-500 mx-auto mb-4" />
             <h2 className="text-2xl font-bold mb-2">Application Submitted!</h2>
@@ -79,7 +80,7 @@ export default function AdmissionsPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6" data-testid="admissions-form">
             <div className="space-y-2">
               <Label htmlFor="name">Full Name *</Label>
               <Input
@@ -88,6 +89,7 @@ export default function AdmissionsPage() {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your full name"
                 required
+                disabled={submitMutation.isPending}
               />
             </div>
 
@@ -100,12 +102,13 @@ export default function AdmissionsPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your.email@example.com"
                 required
+                disabled={submitMutation.isPending}
               />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="program">Program of Interest *</Label>
-              <Select value={program} onValueChange={setProgram} required>
+              <Select value={program} onValueChange={setProgram} required disabled={submitMutation.isPending}>
                 <SelectTrigger id="program">
                   <SelectValue placeholder="Select a program" />
                 </SelectTrigger>
@@ -132,11 +135,24 @@ export default function AdmissionsPage() {
                 placeholder="Tell us about your goals and why you want to join Keep Going Classes..."
                 rows={5}
                 required
+                disabled={submitMutation.isPending}
               />
             </div>
 
-            <Button type="submit" className="w-full" disabled={submitMutation.isPending}>
-              {submitMutation.isPending ? 'Submitting...' : 'Submit Application'}
+            <Button 
+              type="submit" 
+              className="w-full" 
+              disabled={submitMutation.isPending}
+              data-testid="admissions-submit"
+            >
+              {submitMutation.isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Submitting...
+                </>
+              ) : (
+                'Submit Application'
+              )}
             </Button>
           </form>
         </CardContent>

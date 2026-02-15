@@ -14,6 +14,7 @@ After setting up a custom domain, it will be accessible at your own domain (e.g.
 1. A registered domain name (e.g., `keepgoingclasses.com`)
 2. Access to your domain's DNS settings
 3. Your application's canister ID
+4. dfx CLI installed (version 0.15.0 or later)
 
 ## Step 1: Configure DNS Records
 
@@ -42,9 +43,11 @@ If your registrar doesn't support CNAME for root domains, use A records:
 - **Name**: `@`
 - **Value**: Check the latest ICP boundary node IP addresses at [internetcomputer.org](https://internetcomputer.org)
 
+**Note**: DNS propagation typically takes 15 minutes to 48 hours. You can check propagation status using tools like `dig` or online DNS checkers.
+
 ## Step 2: Register Custom Domain with Internet Computer
 
-After DNS propagation (usually 15 minutes to 48 hours), you need to register your custom domain with the Internet Computer boundary nodes.
+After DNS propagation is complete, register your custom domain with the Internet Computer boundary nodes using the dfx CLI.
 
-### Using dfx CLI:
+### Register Root Domain
 

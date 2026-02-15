@@ -114,9 +114,12 @@ const routeTree = rootRoute.addChildren([
   adminAdmissionsRoute,
 ]);
 
+// Get base path from environment, ensuring it works for both root and subpath hosting
+const basePath = import.meta.env.BASE_URL || '/';
+
 const router = createRouter({ 
   routeTree,
-  basepath: import.meta.env.BASE_URL,
+  basepath: basePath,
 });
 
 declare module '@tanstack/react-router' {

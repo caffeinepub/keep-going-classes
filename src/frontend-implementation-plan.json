@@ -1,88 +1,56 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Custom domain + subpath compatible routing, PWA assets, and Internet Identity well-known configuration",
+  "title": "Version 7 production promotion notes and post-deploy smoke checks (frontend)",
   "requirements": [
     {
-      "id": "REQ-17",
-      "summary": "Ensure SPA routing, internal navigation, and static asset URLs work under both root-domain and subpath hosting without hardcoded absolute-root paths.",
+      "id": "REQ-25",
+      "summary": "Add frontend-facing release notes/checklist and remove basepath-sensitive navigation issues to support promoting Version 7 to production.",
       "acceptanceCriteria": [
-        "All internal navigation (header + footer quick links) works when the app is hosted under a non-root base path (no full-page reloads to the wrong origin/path).",
-        "Logo and other static assets load correctly when the app is hosted under a non-root base path.",
-        "No internal links in the app hardcode absolute root paths (e.g., href=\"/\") in a way that breaks subpath hosting."
+        "Version 7 is live and publicly accessible without deployment errors.",
+        "The live deployment serves the latest frontend and backend canister code for Version 7."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Configure TanStack Router with a base path derived from the build-time base URL (e.g., import.meta.env.BASE_URL) so route matching/navigation works when hosted under a subpath."
-        },
-        {
-          "path": "frontend/src/components/layout/SiteLayout.tsx",
-          "operation": "modify",
-          "description": "Replace footer quick-link <a href=\"/...\"> absolute-root navigation with TanStack Router Link-based navigation, and update header logo image URL to be base-path aware (no leading “/”)."
-        },
-        {
-          "path": "frontend/src/pages/Home/HomePage.tsx",
-          "operation": "modify",
-          "description": "Update hero image reference to be base-path aware (avoid leading “/”) so it loads correctly under subpath hosting."
-        },
-        {
-          "path": "frontend/src/utils/assetPaths.ts",
+          "path": "frontend/RELEASE_V7_PROMOTION.md",
           "operation": "create",
-          "description": "Add a small utility to build base-path-aware static asset URLs (prefixing with the app base URL), and use it from UI code to avoid hardcoded absolute-root asset paths."
+          "description": "Create a concise production promotion checklist for Version 7 focused on frontend readiness/verification (built assets, BASE_URL/basepath considerations, Internet Identity alternative origins file presence, and generated asset references)."
+        },
+        {
+          "path": "frontend/src/pages/CoursesExams/CoursesExamsPage.tsx",
+          "operation": "modify",
+          "description": "Replace the hard-coded anchor navigation to \"/admissions\" with router-based navigation (e.g., TanStack Router) so the link works correctly when hosted under a non-root basepath in production."
         }
       ]
     },
     {
-      "id": "REQ-18",
-      "summary": "Make PWA metadata and asset references (manifest link, icons, start_url) compatible with both custom domains and subpath hosting by removing root-based URLs.",
+      "id": "REQ-26",
+      "summary": "Add a repeatable frontend smoke-test checklist and lightweight test hooks to validate public browsing, admissions submission confirmation, and Internet Identity/admin-route protection after deploy.",
       "acceptanceCriteria": [
-        "The PWA manifest and icons resolve correctly when the app is served from a custom domain at the root and when served from a subpath.",
-        "Installing the PWA launches into the correct app URL (no 404/blank page) for both hosting modes.",
-        "There are no broken references to /manifest.webmanifest or /assets/... that depend on being hosted at the origin root."
+        "Public pages load successfully: Home (/), Articles (/articles), Courses & Exams (/courses-exams), YouTube (/youtube), Contact (/contact).",
+        "Submitting the Admissions form (/admissions) succeeds and shows the confirmation/success state.",
+        "Internet Identity login works end-to-end and admin routes remain protected (e.g., /admin, /admin/articles, /admin/admissions)."
       ],
       "file_operations": [
         {
-          "path": "frontend/index.html",
-          "operation": "modify",
-          "description": "Update manifest, icon, apple-touch-icon, and main script references to avoid absolute-root paths (remove leading “/”) so they resolve correctly under subpath hosting."
+          "path": "frontend/SMOKE_TEST_V7.md",
+          "operation": "create",
+          "description": "Create a post-deploy smoke test checklist for the live environment covering: loading each required public route; validating admissions submission and confirmation state; verifying Internet Identity login/logout; and confirming admin routes are protected. Use the authorization component expectations (Internet Identity + role-based admin gating) as the basis for the checks. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/public/manifest.webmanifest",
+          "path": "frontend/src/pages/Admissions/AdmissionsPage.tsx",
           "operation": "modify",
-          "description": "Update manifest start_url and icon src values to be relative (no leading “/”), and ensure manifest fields remain valid for both root and subpath hosting."
-        }
-      ]
-    },
-    {
-      "id": "REQ-19",
-      "summary": "Serve the required Internet Identity custom-origins well-known configuration file from frontend static assets.",
-      "acceptanceCriteria": [
-        "A well-known file required for Internet Identity custom origins is served at the expected path under /.well-known/ from the frontend static assets.",
-        "The well-known configuration supports the deployed app’s existing origin and can be extended to include the user’s custom domain without code changes beyond updating configuration content.",
-        "Logging in via Internet Identity continues to work on the existing deployment URL and is not regressed by the change."
-      ],
-      "file_operations": [
+          "description": "Add stable, non-visual test hooks (e.g., data-testid attributes) for key admissions smoke-test elements: form container, submit button, and success/confirmation state, ensuring the live smoke test can reliably confirm the success state without changing UX."
+        },
         {
-          "path": "frontend/public/.well-known/ii-alternative-origins",
-          "operation": "create",
-          "description": "Add the Internet Identity well-known configuration file for alternative origins (served statically under /.well-known/) with the current deployment origin listed and clear instructions in-file on how to add the custom domain origin."
-        }
-      ]
-    },
-    {
-      "id": "REQ-20",
-      "summary": "Add an in-repo English guide explaining how to connect a custom domain (DNS + II well-known requirements) and troubleshoot common issues.",
-      "acceptanceCriteria": [
-        "Repository contains an English guide describing: (1) what DNS records to add, (2) what domain the app will be served on, and (3) any required .well-known file(s) for Internet Identity and how to verify they are reachable.",
-        "The guide includes a troubleshooting section for common failures (e.g., DNS not propagated, certificate/HTTPS issues, well-known file not reachable)."
-      ],
-      "file_operations": [
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "modify",
+          "description": "Add stable, non-visual test hooks (e.g., data-testid) to support verifying Internet Identity login/logout in smoke tests. This aligns with the authorization component’s login/logout flow; verify the component's usage instructions before implementing."
+        },
         {
-          "path": "frontend/CUSTOM_DOMAIN_SETUP.md",
-          "operation": "create",
-          "description": "Create documentation describing custom domain connection steps: required DNS records, expected final serving URL (root vs subpath), how to verify HTTPS/cert readiness, and Internet Identity requirements including the /.well-known/ii-alternative-origins file and how to validate it is reachable; include troubleshooting tips."
+          "path": "frontend/src/components/auth/AdminGuard.tsx",
+          "operation": "modify",
+          "description": "Add stable, non-visual test hooks (e.g., data-testid) for the guard states (loading, login-required prompt, access-denied) to support validating admin-only access control in smoke tests. Use the authorization component’s RBAC expectations (admin-only) as reference; verify the component's usage instructions before implementing."
         }
       ]
     }
