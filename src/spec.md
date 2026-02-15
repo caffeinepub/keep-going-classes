@@ -1,12 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Update the Contact page to show the user’s WhatsApp and phone numbers with copy actions and working deep links.
+**Goal:** Ensure the app works correctly on both custom domains (root) and subpath deployments, including routing, PWA install behavior, and Internet Identity compatibility.
 
 **Planned changes:**
-- Update `/contact` to display two distinct contact methods labeled “WhatsApp” (9889144312) and “Phone” (9838784245).
-- Add a visible “Copy” action for each number that copies the correct value to the clipboard and shows an English success toast.
-- Make the phone number clickable via a `tel:` link and the WhatsApp number clickable via a WhatsApp deep link (e.g., `wa.me` or `api.whatsapp.com`).
-- Remove/replace any placeholder contact phone number so only the provided numbers are presented as the primary contact options.
+- Update frontend routing and internal links so navigation and static asset URLs work when the app is hosted under a non-root base path (no hardcoded `href="/"`/root-based paths that break subpath hosting).
+- Adjust PWA metadata and references (index HTML + web manifest) to avoid root-dependent URLs so the manifest, icons, and `start_url` resolve correctly for both hosting modes.
+- Add a `.well-known` static configuration file required for Internet Identity custom-domain/origin support, served from the frontend at the expected path.
+- Add a short repository documentation guide describing how to connect a custom domain, including DNS records, required `.well-known` configuration for Internet Identity, verification steps, and basic troubleshooting.
 
-**User-visible outcome:** On the Contact page, users can tap to open WhatsApp or their phone dialer for the provided numbers, or copy either number and see a success confirmation.
+**User-visible outcome:** The app can be served from either a custom domain root or a subpath without broken navigation/assets, can be installed as a PWA that launches to the correct URL, and continues to support Internet Identity login (including on custom domains with the required well-known configuration).

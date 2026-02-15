@@ -7,6 +7,8 @@ import ArticlesListPage from './pages/Articles/ArticlesListPage';
 import ArticleDetailPage from './pages/Articles/ArticleDetailPage';
 import AdmissionsPage from './pages/Admissions/AdmissionsPage';
 import ContactPage from './pages/Contact/ContactPage';
+import CoursesExamsPage from './pages/CoursesExams/CoursesExamsPage';
+import YouTubePage from './pages/YouTube/YouTubePage';
 import AdminDashboardPage from './pages/Admin/AdminDashboardPage';
 import AdminArticlesPage from './pages/Admin/AdminArticlesPage';
 import AdminAdmissionsPage from './pages/Admin/AdminAdmissionsPage';
@@ -56,6 +58,18 @@ const contactRoute = createRoute({
   component: ContactPage,
 });
 
+const coursesExamsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/courses-exams',
+  component: CoursesExamsPage,
+});
+
+const youtubeRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/youtube',
+  component: YouTubePage,
+});
+
 // Admin routes (protected)
 const adminRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -93,12 +107,17 @@ const routeTree = rootRoute.addChildren([
   articleDetailRoute,
   admissionsRoute,
   contactRoute,
+  coursesExamsRoute,
+  youtubeRoute,
   adminRoute,
   adminArticlesRoute,
   adminAdmissionsRoute,
 ]);
 
-const router = createRouter({ routeTree });
+const router = createRouter({ 
+  routeTree,
+  basepath: import.meta.env.BASE_URL,
+});
 
 declare module '@tanstack/react-router' {
   interface Register {

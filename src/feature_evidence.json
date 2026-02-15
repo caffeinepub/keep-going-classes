@@ -2,10 +2,13 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-contact-page-to-display-the-user-s-provided-contact-numbers-whatsapp-9889144312-and-phone-9838784245",
-      "featureTitle": "Update the Contact page to display the user’s provided contact numbers: WhatsApp: 9889144312 and Phone: 9838784245.",
+      "featureId": "feature-make-the-frontend-work-correctly-when-served-from-either-the-root-of-a-custom-domain-e-g-https-yourdomain-com-or-from-a-subpath-deployment-e-g-https-caffeine-icp0-io-app-keep-going-classes-by-ensuring-internal-navigation-and-static-asset-urls-do-not-rely-on-absolute-root-paths",
+      "featureTitle": "Make the frontend work correctly when served from either the root of a custom domain (e.g., https://yourdomain.com) or from a subpath deployment (e.g., https://caffeine.icp0.io/app/keep-going-classes), by ensuring internal navigation and static asset URLs do not rely on absolute root paths.",
       "files": [
-        "frontend/src/pages/Contact/ContactPage.tsx"
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/SiteLayout.tsx",
+        "frontend/src/pages/Home/HomePage.tsx",
+        "frontend/src/utils/assetPaths.ts"
       ],
       "components": [
         "authorization@4.0.0",
@@ -16,15 +19,16 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-9"
+        "REQ-17"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-remove-replace-any-placeholder-contact-phone-number-currently-shown-on-the-contact-page-so-only-the-provided-numbers-are-presented-as-the-primary-phone-whatsapp-contacts",
-      "featureTitle": "Remove/replace any placeholder contact phone number currently shown on the Contact page so only the provided numbers are presented as the primary phone/WhatsApp contacts.",
+      "featureId": "feature-update-pwa-metadata-and-asset-references-to-be-compatible-with-custom-domains-and-subpath-hosting-by-avoiding-hardcoded-root-based-urls-in-frontend-index-html-and-frontend-public-manifest-webmanifest-including-manifest-href-icons-and-start-url",
+      "featureTitle": "Update PWA metadata and asset references to be compatible with custom domains and subpath hosting by avoiding hardcoded root-based URLs in frontend/index.html and frontend/public/manifest.webmanifest (including manifest href, icons, and start_url).",
       "files": [
-        "frontend/src/pages/Contact/ContactPage.tsx"
+        "frontend/index.html",
+        "frontend/public/manifest.webmanifest"
       ],
       "components": [
         "authorization@4.0.0",
@@ -35,7 +39,45 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-10"
+        "REQ-18"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-custom-domain-compatibility-for-internet-identity-by-serving-a-well-known-configuration-file-from-the-frontend-static-asset-that-enables-the-app-origin-s-to-be-used-with-internet-identity-on-a-custom-domain",
+      "featureTitle": "Add custom-domain compatibility for Internet Identity by serving a well-known configuration file from the frontend (static asset) that enables the app origin(s) to be used with Internet Identity on a custom domain.",
+      "files": [
+        "frontend/public/.well-known/ii-alternative-origins"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-19"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-short-user-facing-documentation-page-file-in-the-repository-that-explains-how-to-connect-a-custom-domain-to-the-deployed-app-including-the-required-dns-records-and-any-internet-identity-related-well-known-configuration-that-must-be-present-on-the-domain",
+      "featureTitle": "Add a short, user-facing documentation page/file in the repository that explains how to connect a custom domain to the deployed app, including the required DNS records and any Internet Identity-related well-known configuration that must be present on the domain.",
+      "files": [
+        "frontend/CUSTOM_DOMAIN_SETUP.md"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-20"
       ],
       "confidence": "high"
     }

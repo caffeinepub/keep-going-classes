@@ -1,66 +1,92 @@
 {
   "kind": "build_request",
-  "title": "Update Contact page with WhatsApp and phone numbers",
+  "title": "Set up custom domain compatibility (routing, PWA, and Internet Identity)",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-9",
-      "text": "Update the Contact page to display the user’s provided contact numbers: WhatsApp: 9889144312 and Phone: 9838784245.",
+      "id": "REQ-17",
+      "text": "Make the frontend work correctly when served from either the root of a custom domain (e.g., https://yourdomain.com) or from a subpath deployment (e.g., https://caffeine.icp0.io/app/keep-going-classes), by ensuring internal navigation and static asset URLs do not rely on absolute root paths.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-setup-custom-domain"
         ],
         "quotes": [
-          "Add my contact details as \nWapp 9889144312\nAnd 9838784245"
+          "Setup custom domain"
         ]
       },
       "acceptanceCriteria": [
-        "On /contact, the WhatsApp number 9889144312 is shown as a distinct contact method labeled in English as “WhatsApp”.",
-        "On /contact, the phone number 9838784245 is shown as a distinct contact method labeled in English as “Phone”.",
-        "Both numbers have a visible “Copy” action that copies the correct number to the clipboard and shows a success toast message in English.",
-        "The phone number uses a working tel: link (clicking it opens the device dialer on supported devices/browsers).",
-        "The WhatsApp number uses a working WhatsApp deep link (e.g., wa.me or https://api.whatsapp.com) that opens WhatsApp (or WhatsApp Web) on supported devices/browsers."
+        "All internal navigation (header + footer quick links) works when the app is hosted under a non-root base path (no full-page reloads to the wrong origin/path).",
+        "Logo and other static assets load correctly when the app is hosted under a non-root base path.",
+        "No internal links in the app hardcode absolute root paths (e.g., href=\"/\") in a way that breaks subpath hosting."
       ]
     },
     {
-      "id": "REQ-10",
-      "text": "Remove/replace any placeholder contact phone number currently shown on the Contact page so only the provided numbers are presented as the primary phone/WhatsApp contacts.",
+      "id": "REQ-18",
+      "text": "Update PWA metadata and asset references to be compatible with custom domains and subpath hosting by avoiding hardcoded root-based URLs in frontend/index.html and frontend/public/manifest.webmanifest (including manifest href, icons, and start_url).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-setup-custom-domain"
         ],
         "quotes": [
-          "Add my contact details as \nWapp 9889144312\nAnd 9838784245"
+          "Setup custom domain"
         ]
       },
       "acceptanceCriteria": [
-        "The previously hardcoded placeholder phone number is no longer displayed as the main contact phone on /contact.",
-        "No other placeholder contact numbers are presented as primary contact options on /contact."
+        "The PWA manifest and icons resolve correctly when the app is served from a custom domain at the root and when served from a subpath.",
+        "Installing the PWA launches into the correct app URL (no 404/blank page) for both hosting modes.",
+        "There are no broken references to /manifest.webmanifest or /assets/... that depend on being hosted at the origin root."
+      ]
+    },
+    {
+      "id": "REQ-19",
+      "text": "Add custom-domain compatibility for Internet Identity by serving a well-known configuration file from the frontend (static asset) that enables the app origin(s) to be used with Internet Identity on a custom domain.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-setup-custom-domain"
+        ],
+        "quotes": [
+          "Setup custom domain"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A well-known file required for Internet Identity custom origins is served at the expected path under /.well-known/ from the frontend static assets.",
+        "The well-known configuration supports the deployed app’s existing origin and can be extended to include the user’s custom domain without code changes beyond updating configuration content.",
+        "Logging in via Internet Identity continues to work on the existing deployment URL and is not regressed by the change."
+      ]
+    },
+    {
+      "id": "REQ-20",
+      "text": "Add a short, user-facing documentation page/file in the repository that explains how to connect a custom domain to the deployed app, including the required DNS records and any Internet Identity-related well-known configuration that must be present on the domain.",
+      "target": "unknown",
+      "source": {
+        "messageIds": [
+          "msg-setup-custom-domain"
+        ],
+        "quotes": [
+          "Setup custom domain"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Repository contains an English guide describing: (1) what DNS records to add, (2) what domain the app will be served on, and (3) any required .well-known file(s) for Internet Identity and how to verify they are reachable.",
+        "The guide includes a troubleshooting section for common failures (e.g., DNS not propagated, certificate/HTTPS issues, well-known file not reachable)."
       ]
     }
   ],
   "constraints": [
-    "Frontend immutablePaths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
-    "Keep all user-facing text in English."
+    "Do not modify files under frontend/src/components/ui (read-only).",
+    "Do not modify immutable frontend hook entrypoints listed in SYSTEM_CONTEXT. Compose around them instead.",
+    "Backend must remain a single Motoko actor; do not introduce additional backend services."
   ],
   "nonGoals": [
-    "Adding or changing backend storage for contact details (contacts can remain static in the frontend).",
-    "Adding new authentication or login features."
+    "Purchasing a domain name on behalf of the user.",
+    "Setting up third-party DNS hosting/provider accounts automatically.",
+    "Adding any non-Internet Identity authentication method."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

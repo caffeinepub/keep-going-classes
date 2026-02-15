@@ -1,14 +1,61 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T01:03:06.838Z",
-  "summary": "Contact page updated to show WhatsApp (9889144312) and Phone (9838784245) as distinct methods with copy-to-clipboard actions and English success toasts; WhatsApp uses a wa.me deep link and the page summary indicates phone dialer deep linking is present. No clear evidence in the provided diff summary contradicts the placeholder-number removal requirement.",
-  "missing_requirements": [],
-  "hallucinated_features": [],
-  "confidence": 0.66,
+  "generatedAt": "2026-02-15T02:03:17.565Z",
+  "summary": "Diff implements base-path-aware routing and asset URL handling (TanStack Router basepath + asset helper), updates PWA references to be relative, adds an Internet Identity well-known file, and adds a custom-domain setup guide. The guide appears incomplete and lacks the requested troubleshooting section. Several unrelated UI/content changes are also described in the diff summary.",
+  "missing_requirements": [
+    {
+      "id": "REQ-20",
+      "requirement": "Add a short, user-facing documentation page/file explaining how to connect a custom domain (DNS records, served domain, and any required Internet Identity .well-known file(s) plus how to verify they are reachable), including a troubleshooting section.",
+      "reason": "A guide file was added, but it appears truncated/incomplete (ends at \"Using dfx CLI:\"), does not clearly include the requested troubleshooting section, and does not clearly provide complete Internet Identity well-known verification instructions in the visible content.",
+      "evidence": [
+        "frontend/CUSTOM_DOMAIN_SETUP.md"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Add a new \"YouTube\" navigation item in the primary navigation.",
+      "reason": "Not requested by REQ-17–REQ-20 (custom domain compatibility, PWA paths, II well-known file, documentation).",
+      "evidence": [
+        "frontend-file-summaries.txt (frontend/src/components/navigation/PrimaryNav.tsx summary)"
+      ]
+    },
+    {
+      "description": "Update Admissions page program selection to include Class 9th-12th and defence exams (NDA, CDSE, AFCAT, etc.).",
+      "reason": "Not requested by REQ-17–REQ-20.",
+      "evidence": [
+        "frontend-file-summaries.txt (frontend/src/pages/Admissions/AdmissionsPage.tsx summary)"
+      ]
+    },
+    {
+      "description": "Update Contact page content and add copy-to-clipboard and deep links for WhatsApp/phone dialer.",
+      "reason": "Not requested by REQ-17–REQ-20.",
+      "evidence": [
+        "frontend-file-summaries.txt (frontend/src/pages/Contact/ContactPage.tsx summary)"
+      ]
+    },
+    {
+      "description": "Implement/adjust ProfileSetupModal behavior and admin/auth-related UI/logic changes (modal loading states, admin guards, login button behavior).",
+      "reason": "Not requested by REQ-17–REQ-20.",
+      "evidence": [
+        "frontend-file-summaries.txt (frontend/src/components/auth/ProfileSetupModal.tsx summary)",
+        "frontend-file-summaries.txt (frontend/src/components/auth/AdminGuard.tsx summary)",
+        "frontend-file-summaries.txt (frontend/src/components/auth/LoginButton.tsx summary)"
+      ]
+    }
+  ],
+  "confidence": 0.72,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/pages/Contact/ContactPage.tsx",
+    "frontend/CUSTOM_DOMAIN_SETUP.md",
+    "frontend/index.html",
+    "frontend/public/.well-known/ii-alternative-origins",
+    "frontend/public/manifest.webmanifest",
+    "frontend/src/App.tsx",
+    "frontend/src/components/layout/SiteLayout.tsx",
+    "frontend/src/pages/Home/HomePage.tsx",
+    "frontend/src/utils/assetPaths.ts",
     "project_state.json"
   ]
 }

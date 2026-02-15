@@ -1,6 +1,9 @@
 import { ReactNode } from 'react';
+import { Link } from '@tanstack/react-router';
 import PrimaryNav from '../navigation/PrimaryNav';
 import { SiX, SiFacebook, SiInstagram, SiYoutube } from 'react-icons/si';
+import { YOUTUBE_CONFIG } from '../../config/youtube';
+import { getAssetPath } from '../../utils/assetPaths';
 
 interface SiteLayoutProps {
   children: ReactNode;
@@ -15,9 +18,9 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <img 
-              src="/assets/generated/keep-going-classes-logo.dim_512x512.png" 
+              src={getAssetPath('assets/generated/keep-going-classes-logo.dim_192x192.png')}
               alt="Keep Going Classes" 
               className="h-10 w-10"
             />
@@ -25,7 +28,7 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
               <h1 className="text-lg font-bold text-foreground leading-tight">Keep Going Classes</h1>
               <p className="text-xs text-muted-foreground hidden sm:block">Academic Excellence & Competitive Exam Preparation</p>
             </div>
-          </div>
+          </Link>
           <PrimaryNav />
         </div>
       </header>
@@ -51,10 +54,12 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
             <div>
               <h3 className="font-semibold text-foreground mb-3">Quick Links</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/" className="text-muted-foreground hover:text-foreground transition-colors">Home</a></li>
-                <li><a href="/articles" className="text-muted-foreground hover:text-foreground transition-colors">Articles</a></li>
-                <li><a href="/admissions" className="text-muted-foreground hover:text-foreground transition-colors">Admissions</a></li>
-                <li><a href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</a></li>
+                <li><Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">Home</Link></li>
+                <li><Link to="/articles" className="text-muted-foreground hover:text-foreground transition-colors">Articles</Link></li>
+                <li><Link to="/courses-exams" className="text-muted-foreground hover:text-foreground transition-colors">Courses & Exams</Link></li>
+                <li><Link to="/youtube" className="text-muted-foreground hover:text-foreground transition-colors">YouTube</Link></li>
+                <li><Link to="/admissions" className="text-muted-foreground hover:text-foreground transition-colors">Admissions</Link></li>
+                <li><Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link></li>
               </ul>
             </div>
 
@@ -62,7 +67,7 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
             <div>
               <h3 className="font-semibold text-foreground mb-3">Connect With Us</h3>
               <div className="flex gap-3">
-                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                <a href={YOUTUBE_CONFIG.channelUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
                   <SiYoutube className="h-5 w-5" />
                 </a>
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">

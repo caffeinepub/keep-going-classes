@@ -2,6 +2,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { BookOpen, GraduationCap, Mail, ArrowRight } from 'lucide-react';
+import { getAssetPath } from '../../utils/assetPaths';
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function HomePage() {
             </div>
             <div className="relative">
               <img 
-                src="/assets/generated/keep-going-classes-hero.dim_1600x600.png" 
+                src={getAssetPath('assets/generated/keep-going-classes-hero.dim_1600x600.png')}
                 alt="Students learning" 
                 className="w-full rounded-lg shadow-2xl"
               />

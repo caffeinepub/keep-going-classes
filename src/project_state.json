@@ -1,12 +1,19 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
+  "projectStateVersion": 11,
   "summary": "Build a website and mobile app for the YouTube channel “Keep Going Classes” to serve students, share articles, open admissions, and provide contact information.",
   "architectural_notes": [
-    "Contact section/page content should include WhatsApp contact numbers: 9889144312 and 9838784245 (label as 'Wapp'/WhatsApp)."
+    "Contact section/page content should include WhatsApp contact numbers: 9889144312 and 9838784245 (label as 'Wapp'/WhatsApp).",
+    "Tagline should be: \"PADHAI KA ADDA\".",
+    "Update address to: Utelwa Jagdishpur, Musafirkhana, Amethi, Uttar Pradesh, India 227809.",
+    "Live site currently shared as: https://caffeine.icp0.io/app/keep-going-classes",
+    "User requested setting up a custom domain to improve accessibility/reach (reduce reliance on icp0.io link)."
   ],
-  "known_issues": [],
-  "isFixRequest": false,
+  "known_issues": [
+    "Production deployment reported an internal configuration issue; may require re-run or Caffeine team support.",
+    "Some users/networks encounter \"Canister id not resolved\" when opening the icp0.io URL (likely ISP/network blocking ICP), impacting accessibility."
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-create-a-responsive-website-web-app-for-the-youtube-channel-keep-going-classes-with-the-tagline-presented-in-english-and-clear-navigation-for-students",
@@ -87,6 +94,86 @@
         "REQ-10"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-a-new-public-page-named-courses-exams-that-lists-the-available-school-classes-class-9th-class-10th-class-11th-class-12th-and-competitive-exams-nda-cdse-afcat-airforce-exam-navy-exam-in-clear-sections-using-english-headings-and-labels",
+      "title": "Add a new public page named \"Courses & Exams\" that lists the available school classes (Class 9th, Class 10th, Class 11th, Class 12th) and competitive exams (NDA, CDSE, AFCAT, Airforce Exam, Navy Exam) in clear sections, using English headings and labels.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-site-navigation-to-include-a-link-to-the-new-courses-exams-page-in-both-the-primary-navigation-and-the-footer-quick-links",
+      "title": "Update site navigation to include a link to the new \"Courses & Exams\" page in both the primary navigation and the footer quick links.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-admissions-form-program-of-interest-dropdown-options-to-include-the-user-requested-class-levels-and-exam-prep-programs-class-9th-class-10th-class-11th-class-12th-nda-cdse-afcat-airforce-exam-navy-exam-use-english-labels",
+      "title": "Update the Admissions form \"Program of Interest\" dropdown options to include the user-requested class levels and exam prep programs: Class 9th, Class 10th, Class 11th, Class 12th, NDA, CDSE, AFCAT, Airforce Exam, Navy Exam (use English labels).",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-public-youtube-page-tab-that-is-accessible-from-the-main-navigation-and-provides-in-app-access-to-the-keep-going-classes-youtube-channel-videos",
+      "title": "Add a new public \"YouTube\" page/tab that is accessible from the main navigation and provides in-app access to the Keep Going Classes YouTube channel videos.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-simple-maintainable-youtube-channel-configuration-that-the-app-uses-for-all-youtube-links-embeds-header-footer-social-link-and-the-new-youtube-page",
+      "title": "Implement a simple, maintainable YouTube channel configuration that the app uses for all YouTube links/embeds (header/footer social link and the new YouTube page).",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-refresh-the-keep-going-classes-logo-as-a-generated-static-asset-and-ensure-it-is-used-consistently-in-the-header-and-pwa-metadata",
+      "title": "Add/refresh the Keep Going Classes logo as a generated static asset and ensure it is used consistently in the header and PWA metadata.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-frontend-work-correctly-when-served-from-either-the-root-of-a-custom-domain-e-g-https-yourdomain-com-or-from-a-subpath-deployment-e-g-https-caffeine-icp0-io-app-keep-going-classes-by-ensuring-internal-navigation-and-static-asset-urls-do-not-rely-on-absolute-root-paths",
+      "title": "Make the frontend work correctly when served from either the root of a custom domain (e.g., https://yourdomain.com) or from a subpath deployment (e.g., https://caffeine.icp0.io/app/keep-going-classes), by ensuring internal navigation and static asset URLs do not rely on absolute root paths.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-pwa-metadata-and-asset-references-to-be-compatible-with-custom-domains-and-subpath-hosting-by-avoiding-hardcoded-root-based-urls-in-frontend-index-html-and-frontend-public-manifest-webmanifest-including-manifest-href-icons-and-start-url",
+      "title": "Update PWA metadata and asset references to be compatible with custom domains and subpath hosting by avoiding hardcoded root-based URLs in frontend/index.html and frontend/public/manifest.webmanifest (including manifest href, icons, and start_url).",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-custom-domain-compatibility-for-internet-identity-by-serving-a-well-known-configuration-file-from-the-frontend-static-asset-that-enables-the-app-origin-s-to-be-used-with-internet-identity-on-a-custom-domain",
+      "title": "Add custom-domain compatibility for Internet Identity by serving a well-known configuration file from the frontend (static asset) that enables the app origin(s) to be used with Internet Identity on a custom domain.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-short-user-facing-documentation-page-file-in-the-repository-that-explains-how-to-connect-a-custom-domain-to-the-deployed-app-including-the-required-dns-records-and-any-internet-identity-related-well-known-configuration-that-must-be-present-on-the-domain",
+      "title": "Add a short, user-facing documentation page/file in the repository that explains how to connect a custom domain to the deployed app, including the required DNS records and any Internet Identity-related well-known configuration that must be present on the domain.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -117,6 +204,36 @@
     {
       "id": "AR-5",
       "summary": "Add contact information section/page (e.g., phone/email/address/social links)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Update branding: create/add a logo and set tagline to \"PADHAI KA ADDA\"",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Update contact/address details to: Utelwa Jagdishpur, Musafirkhana, Amethi, Uttar Pradesh, India 227809",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add a Courses/Classes & Exams section listing Class 9th/10th/11th/12th and exams (NDA, CDSE, AFCAT, Airforce Exam, Navy Exam)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Set up/connect a custom domain (e.g., keepgoingclasses.com) for the deployed app/website",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Add a YouTube tab/page linking the Keep Going Classes YouTube channel and showing all channel videos within the app/website",
       "reqIds": [],
       "status": "pending"
     }

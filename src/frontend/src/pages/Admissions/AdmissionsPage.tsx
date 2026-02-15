@@ -110,12 +110,15 @@ export default function AdmissionsPage() {
                   <SelectValue placeholder="Select a program" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="School Academics - Class 6-8">School Academics - Class 6-8</SelectItem>
-                  <SelectItem value="School Academics - Class 9-10">School Academics - Class 9-10</SelectItem>
-                  <SelectItem value="School Academics - Class 11-12">School Academics - Class 11-12</SelectItem>
-                  <SelectItem value="Competitive Exams - JEE">Competitive Exams - JEE</SelectItem>
-                  <SelectItem value="Competitive Exams - NEET">Competitive Exams - NEET</SelectItem>
-                  <SelectItem value="Competitive Exams - Other">Competitive Exams - Other</SelectItem>
+                  <SelectItem value="Class 9th">Class 9th</SelectItem>
+                  <SelectItem value="Class 10th">Class 10th</SelectItem>
+                  <SelectItem value="Class 11th">Class 11th</SelectItem>
+                  <SelectItem value="Class 12th">Class 12th</SelectItem>
+                  <SelectItem value="NDA">NDA (National Defence Academy)</SelectItem>
+                  <SelectItem value="CDSE">CDSE (Combined Defence Services Examination)</SelectItem>
+                  <SelectItem value="AFCAT">AFCAT (Air Force Common Admission Test)</SelectItem>
+                  <SelectItem value="Airforce Exam">Airforce Exam</SelectItem>
+                  <SelectItem value="Navy Exam">Navy Exam</SelectItem>
                 </SelectContent>
               </Select>
             </div>

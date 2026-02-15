@@ -1,46 +1,82 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T01:03:06.841Z",
+  "generatedAt": "2026-02-15T02:03:17.568Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 4,
+    "implemented": 4,
     "items": [
       {
-        "id": "REQ-10",
-        "summary": "Remove/replace any placeholder contact phone number currently shown on the Contact page so only the provided numbers are presented as the primary phone/WhatsApp contacts.",
+        "id": "REQ-17",
+        "summary": "Make the frontend work correctly when served from either the root of a custom domain (e.g., https://yourdomain.com) or from a subpath deployment (e.g., https://caffeine.icp0.io/app/keep-going-classes), by ensuring internal navigation and static asset URLs do not rely on absolute root paths.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/Contact/ContactPage.tsx"
+          "frontend/src/App.tsx",
+          "frontend/src/components/layout/SiteLayout.tsx",
+          "frontend/src/pages/Home/HomePage.tsx",
+          "frontend/src/utils/assetPaths.ts"
         ],
         "matchedFiles": [
-          "frontend/src/pages/Contact/ContactPage.tsx"
+          "frontend/src/App.tsx",
+          "frontend/src/components/layout/SiteLayout.tsx",
+          "frontend/src/pages/Home/HomePage.tsx",
+          "frontend/src/utils/assetPaths.ts"
         ]
       },
       {
-        "id": "REQ-9",
-        "summary": "Update the Contact page to display the user’s provided contact numbers: WhatsApp: 9889144312 and Phone: 9838784245.",
+        "id": "REQ-18",
+        "summary": "Update PWA metadata and asset references to be compatible with custom domains and subpath hosting by avoiding hardcoded root-based URLs in frontend/index.html and frontend/public/manifest.webmanifest (including manifest href, icons, and start_url).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/Contact/ContactPage.tsx"
+          "frontend/index.html",
+          "frontend/public/manifest.webmanifest"
         ],
         "matchedFiles": [
-          "frontend/src/pages/Contact/ContactPage.tsx"
+          "frontend/index.html",
+          "frontend/public/manifest.webmanifest"
+        ]
+      },
+      {
+        "id": "REQ-19",
+        "summary": "Add custom-domain compatibility for Internet Identity by serving a well-known configuration file from the frontend (static asset) that enables the app origin(s) to be used with Internet Identity on a custom domain.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/public/.well-known/ii-alternative-origins"
+        ],
+        "matchedFiles": [
+          "frontend/public/.well-known/ii-alternative-origins"
+        ]
+      },
+      {
+        "id": "REQ-20",
+        "summary": "Add a short, user-facing documentation page/file in the repository that explains how to connect a custom domain to the deployed app, including the required DNS records and any Internet Identity-related well-known configuration that must be present on the domain.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/CUSTOM_DOMAIN_SETUP.md"
+        ],
+        "matchedFiles": [
+          "frontend/CUSTOM_DOMAIN_SETUP.md"
         ]
       }
     ]
   },
   "changedFiles": [
     "build-request.json",
-    "build-template/README.md",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/pages/Contact/ContactPage.tsx",
+    "frontend/CUSTOM_DOMAIN_SETUP.md",
+    "frontend/index.html",
+    "frontend/public/.well-known/ii-alternative-origins",
+    "frontend/public/manifest.webmanifest",
+    "frontend/src/App.tsx",
+    "frontend/src/components/layout/SiteLayout.tsx",
+    "frontend/src/pages/Home/HomePage.tsx",
+    "frontend/src/utils/assetPaths.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

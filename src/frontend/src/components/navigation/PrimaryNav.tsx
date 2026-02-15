@@ -18,6 +18,8 @@ export default function PrimaryNav() {
   const navItems = [
     { label: 'Home', path: '/' },
     { label: 'Articles', path: '/articles' },
+    { label: 'Courses & Exams', path: '/courses-exams' },
+    { label: 'YouTube', path: '/youtube' },
     { label: 'Admissions', path: '/admissions' },
     { label: 'Contact', path: '/contact' },
   ];

@@ -1,38 +1,88 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Update Contact page with WhatsApp and phone numbers",
+  "title": "Custom domain + subpath compatible routing, PWA assets, and Internet Identity well-known configuration",
   "requirements": [
     {
-      "id": "REQ-9",
-      "summary": "Show WhatsApp and Phone contact methods on /contact with working deep links and copy-to-clipboard success toasts.",
+      "id": "REQ-17",
+      "summary": "Ensure SPA routing, internal navigation, and static asset URLs work under both root-domain and subpath hosting without hardcoded absolute-root paths.",
       "acceptanceCriteria": [
-        "On /contact, the WhatsApp number 9889144312 is shown as a distinct contact method labeled in English as “WhatsApp”.",
-        "On /contact, the phone number 9838784245 is shown as a distinct contact method labeled in English as “Phone”.",
-        "Both numbers have a visible “Copy” action that copies the correct number to the clipboard and shows a success toast message in English.",
-        "The phone number uses a working tel: link (clicking it opens the device dialer on supported devices/browsers).",
-        "The WhatsApp number uses a working WhatsApp deep link (e.g., wa.me or https://api.whatsapp.com) that opens WhatsApp (or WhatsApp Web) on supported devices/browsers."
+        "All internal navigation (header + footer quick links) works when the app is hosted under a non-root base path (no full-page reloads to the wrong origin/path).",
+        "Logo and other static assets load correctly when the app is hosted under a non-root base path.",
+        "No internal links in the app hardcode absolute root paths (e.g., href=\"/\") in a way that breaks subpath hosting."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/Contact/ContactPage.tsx",
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Update the Contact page UI to include two distinct primary contact cards: “WhatsApp” (number 9889144312 with a working WhatsApp deep link such as wa.me/api.whatsapp.com) and “Phone” (number 9838784245 with a working tel: link). Add separate “Copy” actions for both numbers that copy the correct value and trigger an English success toast via the existing notification system. Use the existing shadcn-ui Card/Button components to keep styling consistent; verify the component's usage instructions before implementing."
+          "description": "Configure TanStack Router with a base path derived from the build-time base URL (e.g., import.meta.env.BASE_URL) so route matching/navigation works when hosted under a subpath."
+        },
+        {
+          "path": "frontend/src/components/layout/SiteLayout.tsx",
+          "operation": "modify",
+          "description": "Replace footer quick-link <a href=\"/...\"> absolute-root navigation with TanStack Router Link-based navigation, and update header logo image URL to be base-path aware (no leading “/”)."
+        },
+        {
+          "path": "frontend/src/pages/Home/HomePage.tsx",
+          "operation": "modify",
+          "description": "Update hero image reference to be base-path aware (avoid leading “/”) so it loads correctly under subpath hosting."
+        },
+        {
+          "path": "frontend/src/utils/assetPaths.ts",
+          "operation": "create",
+          "description": "Add a small utility to build base-path-aware static asset URLs (prefixing with the app base URL), and use it from UI code to avoid hardcoded absolute-root asset paths."
         }
       ]
     },
     {
-      "id": "REQ-10",
-      "summary": "Remove any placeholder phone number from /contact so only the provided WhatsApp and Phone numbers are presented as primary contacts.",
+      "id": "REQ-18",
+      "summary": "Make PWA metadata and asset references (manifest link, icons, start_url) compatible with both custom domains and subpath hosting by removing root-based URLs.",
       "acceptanceCriteria": [
-        "The previously hardcoded placeholder phone number is no longer displayed as the main contact phone on /contact.",
-        "No other placeholder contact numbers are presented as primary contact options on /contact."
+        "The PWA manifest and icons resolve correctly when the app is served from a custom domain at the root and when served from a subpath.",
+        "Installing the PWA launches into the correct app URL (no 404/blank page) for both hosting modes.",
+        "There are no broken references to /manifest.webmanifest or /assets/... that depend on being hosted at the origin root."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/Contact/ContactPage.tsx",
+          "path": "frontend/index.html",
           "operation": "modify",
-          "description": "Replace the current placeholder phone value (e.g., “+91 98765 43210”) and any other placeholder primary contact numbers in the main contact section so the only primary phone/WhatsApp contacts shown are WhatsApp: 9889144312 and Phone: 9838784245. Verify the component's usage instructions before implementing."
+          "description": "Update manifest, icon, apple-touch-icon, and main script references to avoid absolute-root paths (remove leading “/”) so they resolve correctly under subpath hosting."
+        },
+        {
+          "path": "frontend/public/manifest.webmanifest",
+          "operation": "modify",
+          "description": "Update manifest start_url and icon src values to be relative (no leading “/”), and ensure manifest fields remain valid for both root and subpath hosting."
+        }
+      ]
+    },
+    {
+      "id": "REQ-19",
+      "summary": "Serve the required Internet Identity custom-origins well-known configuration file from frontend static assets.",
+      "acceptanceCriteria": [
+        "A well-known file required for Internet Identity custom origins is served at the expected path under /.well-known/ from the frontend static assets.",
+        "The well-known configuration supports the deployed app’s existing origin and can be extended to include the user’s custom domain without code changes beyond updating configuration content.",
+        "Logging in via Internet Identity continues to work on the existing deployment URL and is not regressed by the change."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/.well-known/ii-alternative-origins",
+          "operation": "create",
+          "description": "Add the Internet Identity well-known configuration file for alternative origins (served statically under /.well-known/) with the current deployment origin listed and clear instructions in-file on how to add the custom domain origin."
+        }
+      ]
+    },
+    {
+      "id": "REQ-20",
+      "summary": "Add an in-repo English guide explaining how to connect a custom domain (DNS + II well-known requirements) and troubleshoot common issues.",
+      "acceptanceCriteria": [
+        "Repository contains an English guide describing: (1) what DNS records to add, (2) what domain the app will be served on, and (3) any required .well-known file(s) for Internet Identity and how to verify they are reachable.",
+        "The guide includes a troubleshooting section for common failures (e.g., DNS not propagated, certificate/HTTPS issues, well-known file not reachable)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/CUSTOM_DOMAIN_SETUP.md",
+          "operation": "create",
+          "description": "Create documentation describing custom domain connection steps: required DNS records, expected final serving URL (root vs subpath), how to verify HTTPS/cert readiness, and Internet Identity requirements including the /.well-known/ii-alternative-origins file and how to validate it is reachable; include troubleshooting tips."
         }
       ]
     }
