@@ -1,0 +1,173 @@
+{
+  "kind": "build_request",
+  "title": "Keep Going Classes student portal: articles, admissions, and contact info",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a responsive website/web app for the YouTube channel \"Keep Going Classes\" with the tagline presented in English and clear navigation for students.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "I run a YouTube channel whose name is keep going classes and the tagline is it is a channel which is oriented to the for teaching academics to a student and for teaching the comp for competitive exams"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The app header/site identity displays \"Keep Going Classes\" and an English tagline.",
+        "Navigation provides access to at least: Home, Articles, Admissions, Contact.",
+        "Layout is responsive and usable on mobile and desktop screen sizes."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement an Articles section where students can browse and read published articles.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "I can share my articles"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Frontend provides an Articles listing page and an Article detail view.",
+        "Backend provides APIs to list articles and fetch an article by id.",
+        "Articles include at minimum: title, content body, created/published timestamp.",
+        "Articles display correctly after page refresh (data persists in canister stable storage)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add an admin-only interface to create, edit, publish/unpublish, and delete articles using Internet Identity authentication.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "I can share my articles"
+        ]
+      },
+      "acceptanceCriteria": [
+        "There is an Admin area accessible only after logging in with Internet Identity.",
+        "Backend enforces admin authorization for all write operations (create/edit/publish/delete).",
+        "A configurable list of admin principals exists in the backend (hardcoded initial list is acceptable for initial build).",
+        "Non-admin users cannot access admin pages or perform admin operations (backend rejects unauthorized calls)."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement an Admissions feature allowing students to submit admission/enrollment requests via a form.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "I can open admissions on that website"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Frontend includes an Admissions page with a form and submission success/failure feedback.",
+        "Backend stores admission submissions in stable storage.",
+        "A submission includes at minimum: student name, contact method (phone/email), selected course/interest area, message/notes, and submitted timestamp.",
+        "Admin-only view lists received admission submissions and allows marking them as reviewed/archived."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Add a Contact section/page that shows the creator's contact information and allows easy copying/launching (e.g., click-to-email, click-to-call when appropriate).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "also add my contact info"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A Contact page exists and is reachable from navigation.",
+        "Contact details are presented in English with placeholders that are easy to update (phone, email, address and/or social links).",
+        "Email links use mailto: and phone uses tel: where applicable."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Apply a cohesive, distinctive visual theme (colors, typography, spacing, and component styling) appropriate for an educational/coaching brand and enforce it consistently across all pages.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "make a app and make a website for me"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All pages share consistent header/footer styling, typography scale, and color palette.",
+        "The theme does not rely on a default/unstyled look; it is clearly intentional and consistent.",
+        "Theme avoids a blue/purple-dominant palette unless explicitly needed for contrast/accessibility."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Provide a \"mobile app-like\" experience within the responsive web app (PWA-style basics): add installable metadata and a home-screen icon so students can save it to their device.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "make a app and make a website for me so that I can open to all my students"
+        ]
+      },
+      "acceptanceCriteria": [
+        "App includes a web manifest and icons so modern browsers can offer an install option.",
+        "The app has a proper app title and icons when installed.",
+        "Core pages remain functional when accessed from an installed shortcut (no broken routing)."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Add a simple Home page that explains what Keep Going Classes offers (academics + competitive exam preparation) and provides clear calls to action for Articles and Admissions.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "oriented to the for teaching academics to a student and for teaching the comp for competitive exams"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Home page includes an English description of the channel/academy focus.",
+        "Home page includes prominent links/buttons to Articles and Admissions.",
+        "Home page includes a brief section highlighting how to contact/join."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor (single-canister backend).",
+    "Do not edit files under frontend immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui (compose these components instead).",
+    "Use English for any user-facing text."
+  ],
+  "nonGoals": [
+    "Native iOS/Android app binaries (deliver a responsive web app with installable PWA-style behavior instead).",
+    "Payments, subscriptions, or paid admissions.",
+    "Real-time chat or push notifications.",
+    "Third-party authentication beyond Internet Identity."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Educational brand logo mark with text \"Keep Going Classes\" (keep-going-classes-logo.dim_512x512.png)",
+      "Wide hero banner illustration with an academic/competitive exam study vibe (keep-going-classes-hero.dim_1600x600.png)",
+      "Simple set of 3 matching outline icons: Articles, Admissions, Contact (kgc-icons-set.dim_512x512.png)"
+    ],
+    "edits": []
+  }
+}

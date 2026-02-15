@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build a website and mobile app for the YouTube channel “Keep Going Classes” to serve students, share articles, open admissions, and provide contact information.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Educational brand logo mark with text \"Keep Going Classes\" (keep-going-classes-logo.dim_512x512.png)\n- Wide hero banner illustration with an academic/competitive exam study vibe (keep-going-classes-hero.dim_1600x600.png)\n- Simple set of 3 matching outline icons: Articles, Admissions, Contact (kgc-icons-set.dim_512x512.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-responsive-website-web-app-for-the-youtube-channel-keep-going-classes-with-the-tagline-presented-in-english-and-clear-navigation-for-students",
+      "title": "Create a responsive website/web app for the YouTube channel \"Keep Going Classes\" with the tagline presented in English and clear navigation for students.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-an-articles-section-where-students-can-browse-and-read-published-articles",
+      "title": "Implement an Articles section where students can browse and read published articles.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-admin-only-interface-to-create-edit-publish-unpublish-and-delete-articles-using-internet-identity-authentication",
+      "title": "Add an admin-only interface to create, edit, publish/unpublish, and delete articles using Internet Identity authentication.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-an-admissions-feature-allowing-students-to-submit-admission-enrollment-requests-via-a-form",
+      "title": "Implement an Admissions feature allowing students to submit admission/enrollment requests via a form.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-contact-section-page-that-shows-the-creator-s-contact-information-and-allows-easy-copying-launching-e-g-click-to-email-click-to-call-when-appropriate",
+      "title": "Add a Contact section/page that shows the creator's contact information and allows easy copying/launching (e.g., click-to-email, click-to-call when appropriate).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-cohesive-distinctive-visual-theme-colors-typography-spacing-and-component-styling-appropriate-for-an-educational-coaching-brand-and-enforce-it-consistently-across-all-pages",
+      "title": "Apply a cohesive, distinctive visual theme (colors, typography, spacing, and component styling) appropriate for an educational/coaching brand and enforce it consistently across all pages.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-a-mobile-app-like-experience-within-the-responsive-web-app-pwa-style-basics-add-installable-metadata-and-a-home-screen-icon-so-students-can-save-it-to-their-device",
+      "title": "Provide a \"mobile app-like\" experience within the responsive web app (PWA-style basics): add installable metadata and a home-screen icon so students can save it to their device.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-simple-home-page-that-explains-what-keep-going-classes-offers-academics-competitive-exam-preparation-and-provides-clear-calls-to-action-for-articles-and-admissions",
+      "title": "Add a simple Home page that explains what Keep Going Classes offers (academics + competitive exam preparation) and provides clear calls to action for Articles and Admissions.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create a website for Keep Going Classes for students to access content and information",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Create a mobile app for Keep Going Classes for students to access content and information",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add articles/content publishing section to share articles with students",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add online admissions/enrollment feature on the website/app",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Add contact information section/page (e.g., phone/email/address/social links)",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Keep Going Classes",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

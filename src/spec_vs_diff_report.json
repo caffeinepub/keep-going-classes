@@ -1,0 +1,99 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-15T00:54:00.040Z",
+  "summary": "The diff adds a new Motoko backend actor with article/admissions APIs plus a React/TanStack Router frontend with navigation, admin guard, admin pages for articles/admissions, and a custom warm theme. However, several BuildRequest requirements are either not evidenced or appear incomplete (notably timestamps + stable persistence, admissions data shape + reviewed/archived status, and PWA manifest/icons). The diff also introduces some unrequested features (user profiles and a secret-token-based access-control initialization).",
+  "missing_requirements": [
+    {
+      "id": "REQ-2",
+      "requirement": "Articles include at minimum: title, content body, created/published timestamp; and articles persist across page refresh via canister stable storage.",
+      "reason": "Backend Article type shown has no timestamp fields, and storage uses in-memory Map/vars with no stable variables or preupgrade/postupgrade logic evidenced in the truncated backend file.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Admissions submissions include student name, contact method (phone/email), selected course/interest area, message/notes, and submitted timestamp; backend stores them in stable storage; admin can mark reviewed/archived.",
+      "reason": "Backend AdmissionRequest type shown contains only id, name, email, program, motivation (no phone/contact method choice, no message/notes field distinct from motivation, and no submitted timestamp). Admin 'archive' in UI appears to delete requests rather than marking reviewed/archived. No stable-storage upgrade hooks are evidenced.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/pages/Admin/AdminAdmissionsPage.tsx",
+        "frontend/src/hooks/admissions/useAdmissionRequests.ts"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Add PWA-style installable metadata: web manifest and home-screen icon; installed shortcut routing must work.",
+      "reason": "No manifest file, icon registration, or related metadata changes are shown in the diff summary (no evidence of manifest.json, service worker, or index.html updates).",
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend/src/main.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "User profile system requiring authenticated users to create/save a profile (name/email) via a modal, with backend profile APIs and authorization checks.",
+      "reason": "BuildRequest does not ask for user profiles or gating usage on profile creation; requirements focus on articles/admissions/contact/admin.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/components/auth/ProfileSetupModal.tsx",
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "description": "Secret-parameter-based access-control initialization using a URL param named 'caffeineAdminToken' and backend method '_initializeAccessControlWithSecret'.",
+      "reason": "BuildRequest specifies a configurable list of admin principals (hardcoded acceptable) and Internet Identity auth; it does not request a secret-token URL bootstrap mechanism.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "Dark mode/theming via next-themes ThemeProvider.",
+      "reason": "BuildRequest requires a cohesive theme (and avoidance of blue/purple dominance) but does not request dark mode support specifically.",
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend/src/index.css"
+      ]
+    }
+  ],
+  "confidence": 0.68,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/public/manifest.webmanifest",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/AdminGuard.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/auth/ProfileSetupModal.tsx",
+    "frontend/src/components/layout/SiteLayout.tsx",
+    "frontend/src/components/navigation/PrimaryNav.tsx",
+    "frontend/src/hooks/admin/useAdminArticleMutations.ts",
+    "frontend/src/hooks/admin/useAdminStatus.ts",
+    "frontend/src/hooks/admissions/useAdmissionRequests.ts",
+    "frontend/src/hooks/admissions/useSubmitAdmission.ts",
+    "frontend/src/hooks/articles/useArticleById.ts",
+    "frontend/src/hooks/articles/usePublishedArticles.ts",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/Admin/AdminAdmissionsPage.tsx",
+    "frontend/src/pages/Admin/AdminArticlesPage.tsx",
+    "frontend/src/pages/Admin/AdminDashboardPage.tsx",
+    "frontend/src/pages/Admissions/AdmissionsPage.tsx",
+    "frontend/src/pages/Articles/ArticleDetailPage.tsx",
+    "frontend/src/pages/Articles/ArticlesListPage.tsx",
+    "frontend/src/pages/Contact/ContactPage.tsx",
+    "frontend/src/pages/Home/HomePage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}
