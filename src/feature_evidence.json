@@ -2,103 +2,9 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-create-a-responsive-website-web-app-for-the-youtube-channel-keep-going-classes-with-the-tagline-presented-in-english-and-clear-navigation-for-students",
-      "featureTitle": "Create a responsive website/web app for the YouTube channel \"Keep Going Classes\" with the tagline presented in English and clear navigation for students.",
+      "featureId": "feature-update-the-contact-page-to-display-the-user-s-provided-contact-numbers-whatsapp-9889144312-and-phone-9838784245",
+      "featureTitle": "Update the Contact page to display the user’s provided contact numbers: WhatsApp: 9889144312 and Phone: 9838784245.",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/layout/SiteLayout.tsx",
-        "frontend/src/components/navigation/PrimaryNav.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-1"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-an-articles-section-where-students-can-browse-and-read-published-articles",
-      "featureTitle": "Implement an Articles section where students can browse and read published articles.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/hooks/articles/useArticleById.ts",
-        "frontend/src/hooks/articles/usePublishedArticles.ts",
-        "frontend/src/pages/Articles/ArticleDetailPage.tsx",
-        "frontend/src/pages/Articles/ArticlesListPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-an-admin-only-interface-to-create-edit-publish-unpublish-and-delete-articles-using-internet-identity-authentication",
-      "featureTitle": "Add an admin-only interface to create, edit, publish/unpublish, and delete articles using Internet Identity authentication.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/auth/AdminGuard.tsx",
-        "frontend/src/components/auth/LoginButton.tsx",
-        "frontend/src/components/auth/ProfileSetupModal.tsx",
-        "frontend/src/hooks/admin/useAdminArticleMutations.ts",
-        "frontend/src/hooks/admin/useAdminStatus.ts",
-        "frontend/src/pages/Admin/AdminArticlesPage.tsx",
-        "frontend/src/pages/Admin/AdminDashboardPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-an-admissions-feature-allowing-students-to-submit-admission-enrollment-requests-via-a-form",
-      "featureTitle": "Implement an Admissions feature allowing students to submit admission/enrollment requests via a form.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/hooks/admissions/useAdmissionRequests.ts",
-        "frontend/src/hooks/admissions/useSubmitAdmission.ts",
-        "frontend/src/pages/Admin/AdminAdmissionsPage.tsx",
-        "frontend/src/pages/Admissions/AdmissionsPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-contact-section-page-that-shows-the-creator-s-contact-information-and-allows-easy-copying-launching-e-g-click-to-email-click-to-call-when-appropriate",
-      "featureTitle": "Add a Contact section/page that shows the creator's contact information and allows easy copying/launching (e.g., click-to-email, click-to-call when appropriate).",
-      "files": [
-        "frontend/src/App.tsx",
         "frontend/src/pages/Contact/ContactPage.tsx"
       ],
       "components": [
@@ -110,16 +16,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-5"
+        "REQ-9"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-apply-a-cohesive-distinctive-visual-theme-colors-typography-spacing-and-component-styling-appropriate-for-an-educational-coaching-brand-and-enforce-it-consistently-across-all-pages",
-      "featureTitle": "Apply a cohesive, distinctive visual theme (colors, typography, spacing, and component styling) appropriate for an educational/coaching brand and enforce it consistently across all pages.",
+      "featureId": "feature-remove-replace-any-placeholder-contact-phone-number-currently-shown-on-the-contact-page-so-only-the-provided-numbers-are-presented-as-the-primary-phone-whatsapp-contacts",
+      "featureTitle": "Remove/replace any placeholder contact phone number currently shown on the Contact page so only the provided numbers are presented as the primary phone/WhatsApp contacts.",
       "files": [
-        "frontend/src/components/layout/SiteLayout.tsx",
-        "frontend/src/index.css"
+        "frontend/src/pages/Contact/ContactPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -130,47 +35,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-6"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-provide-a-mobile-app-like-experience-within-the-responsive-web-app-pwa-style-basics-add-installable-metadata-and-a-home-screen-icon-so-students-can-save-it-to-their-device",
-      "featureTitle": "Provide a \"mobile app-like\" experience within the responsive web app (PWA-style basics): add installable metadata and a home-screen icon so students can save it to their device.",
-      "files": [
-        "frontend/index.html",
-        "frontend/public/manifest.webmanifest"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-7"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-simple-home-page-that-explains-what-keep-going-classes-offers-academics-competitive-exam-preparation-and-provides-clear-calls-to-action-for-articles-and-admissions",
-      "featureTitle": "Add a simple Home page that explains what Keep Going Classes offers (academics + competitive exam preparation) and provides clear calls to action for Articles and Admissions.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/pages/Home/HomePage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-8"
+        "REQ-10"
       ],
       "confidence": "high"
     }

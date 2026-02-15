@@ -1,11 +1,12 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
+  "projectStateVersion": 5,
   "summary": "Build a website and mobile app for the YouTube channel “Keep Going Classes” to serve students, share articles, open admissions, and provide contact information.",
-  "architectural_notes": [],
+  "architectural_notes": [
+    "Contact section/page content should include WhatsApp contact numbers: 9889144312 and 9838784245 (label as 'Wapp'/WhatsApp)."
+  ],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Educational brand logo mark with text \"Keep Going Classes\" (keep-going-classes-logo.dim_512x512.png)\n- Wide hero banner illustration with an academic/competitive exam study vibe (keep-going-classes-hero.dim_1600x600.png)\n- Simple set of 3 matching outline icons: Articles, Admissions, Contact (kgc-icons-set.dim_512x512.png)",
   "existing_features": [
     {
       "id": "feature-create-a-responsive-website-web-app-for-the-youtube-channel-keep-going-classes-with-the-tagline-presented-in-english-and-clear-navigation-for-students",
@@ -68,6 +69,22 @@
       "title": "Add a simple Home page that explains what Keep Going Classes offers (academics + competitive exam preparation) and provides clear calls to action for Articles and Admissions.",
       "reqIds": [
         "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-contact-page-to-display-the-user-s-provided-contact-numbers-whatsapp-9889144312-and-phone-9838784245",
+      "title": "Update the Contact page to display the user’s provided contact numbers: WhatsApp: 9889144312 and Phone: 9838784245.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-replace-any-placeholder-contact-phone-number-currently-shown-on-the-contact-page-so-only-the-provided-numbers-are-presented-as-the-primary-phone-whatsapp-contacts",
+      "title": "Remove/replace any placeholder contact phone number currently shown on the Contact page so only the provided numbers are presented as the primary phone/WhatsApp contacts.",
+      "reqIds": [
+        "REQ-10"
       ],
       "version": 1
     }

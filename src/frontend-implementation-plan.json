@@ -1,256 +1,38 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Keep Going Classes student portal (responsive PWA with articles, admissions, admin, and contact)",
+  "title": "Update Contact page with WhatsApp and phone numbers",
   "requirements": [
     {
-      "id": "REQ-1",
-      "summary": "Create a responsive student-facing shell with Keep Going Classes identity (name + English tagline) and navigation to Home, Articles, Admissions, Contact.",
+      "id": "REQ-9",
+      "summary": "Show WhatsApp and Phone contact methods on /contact with working deep links and copy-to-clipboard success toasts.",
       "acceptanceCriteria": [
-        "The app header/site identity displays \"Keep Going Classes\" and an English tagline.",
-        "Navigation provides access to at least: Home, Articles, Admissions, Contact.",
-        "Layout is responsive and usable on mobile and desktop screen sizes."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "create",
-          "description": "Create the root app component with top-level layout and route wiring for Home, Articles (list + detail), Admissions, Contact, and Admin. Ensure responsive navigation and consistent site identity (\"Keep Going Classes\" + English tagline)."
-        },
-        {
-          "path": "frontend/src/components/layout/SiteLayout.tsx",
-          "operation": "create",
-          "description": "Add a shared layout component that renders the header (brand + tagline + navigation) and footer, and provides a responsive container for page content. Use shadcn-ui primitives where appropriate (e.g., navigation button styling). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/navigation/PrimaryNav.tsx",
-          "operation": "create",
-          "description": "Implement the primary navigation UI that links to Home, Articles, Admissions, and Contact, with mobile-friendly behavior (e.g., collapsible menu/drawer). Use shadcn-ui components for accessible interactions (e.g., sheet/dropdown). Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Implement student Articles browsing with a listing page and article detail view backed by existing backend functions.",
-      "acceptanceCriteria": [
-        "Frontend provides an Articles listing page and an Article detail view.",
-        "Backend provides APIs to list articles and fetch an article by id.",
-        "Articles include at minimum: title, content body, created/published timestamp.",
-        "Articles display correctly after page refresh (data persists in canister stable storage)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/Articles/ArticlesListPage.tsx",
-          "operation": "create",
-          "description": "Create the Articles listing page that fetches and displays published articles using the backend actor (getAllPublishedArticles). Render each item with title and a readable preview; link to the detail route."
-        },
-        {
-          "path": "frontend/src/pages/Articles/ArticleDetailPage.tsx",
-          "operation": "create",
-          "description": "Create the Article detail page that loads an article by id (getArticleById) and renders title + full content. Handle not-found/unauthorized errors gracefully with a clear English message."
-        },
-        {
-          "path": "frontend/src/hooks/articles/usePublishedArticles.ts",
-          "operation": "create",
-          "description": "Add React Query hooks to fetch published articles for the listing page using useActor(). Keep query keys stable and handle loading/error states."
-        },
-        {
-          "path": "frontend/src/hooks/articles/useArticleById.ts",
-          "operation": "create",
-          "description": "Add a React Query hook to fetch a single article by id using useActor() and provide loading/error helpers for the detail view."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wire Articles routes into the app router: an Articles listing route and an Article detail route (by id). Ensure navigation points to the listing route."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Add an Internet Identity authenticated, admin-only area for managing articles (create/edit/publish/unpublish/delete) with UI guards and graceful authorization error handling.",
-      "acceptanceCriteria": [
-        "There is an Admin area accessible only after logging in with Internet Identity.",
-        "Backend enforces admin authorization for all write operations (create/edit/publish/delete).",
-        "A configurable list of admin principals exists in the backend (hardcoded initial list is acceptable for initial build).",
-        "Non-admin users cannot access admin pages or perform admin operations (backend rejects unauthorized calls)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/auth/LoginButton.tsx",
-          "operation": "create",
-          "description": "Implement a Login/Logout button using the existing useInternetIdentity hook and clear React Query cache on logout (per the authorization component guidance). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
-          "operation": "create",
-          "description": "Add a first-login profile setup modal that asks for the user's name (English UI) and saves it via saveCallerUserProfile; avoid modal flash by following the authorization component guidance around actor-dependent queries. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/auth/AdminGuard.tsx",
-          "operation": "create",
-          "description": "Create a guard wrapper that requires Internet Identity login and verifies admin status via isCallerAdmin/getCallerUserRole before rendering admin pages; show an Access Denied screen if unauthorized. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/Admin/AdminDashboardPage.tsx",
-          "operation": "create",
-          "description": "Create an Admin dashboard page (wrapped by AdminGuard) with navigation to Admin Articles and Admin Admissions. Use shadcn-ui layout/navigation components for consistent admin UI. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/Admin/AdminArticlesPage.tsx",
-          "operation": "create",
-          "description": "Create the admin articles management page: list all relevant articles visible to admin (use getArticleById as needed for editing flows), support createArticle, updateArticle, setArticlePublished, and deleteArticle. Handle backend authorization failures by showing clear English errors."
-        },
-        {
-          "path": "frontend/src/hooks/admin/useAdminStatus.ts",
-          "operation": "create",
-          "description": "Add a React Query hook to determine admin status (isCallerAdmin and/or getCallerUserRole), used by AdminGuard and admin navigation decisions. Verify the component's usage instructions before implementing (authorization component)."
-        },
-        {
-          "path": "frontend/src/hooks/admin/useAdminArticleMutations.ts",
-          "operation": "create",
-          "description": "Add React Query mutations for admin article actions (create/edit/publish/unpublish/delete) and invalidate relevant article queries on success."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wire the Admin routes into the router (e.g., /admin, /admin/articles, /admin/admissions) and ensure they render behind AdminGuard. Add header navigation access to Admin (optional) that only appears when admin is confirmed."
-        }
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "summary": "Implement Admissions form submission for students plus an admin-only view to review and archive submissions using existing backend functions.",
-      "acceptanceCriteria": [
-        "Frontend includes an Admissions page with a form and submission success/failure feedback.",
-        "Backend stores admission submissions in stable storage.",
-        "A submission includes at minimum: student name, contact method (phone/email), selected course/interest area, message/notes, and submitted timestamp.",
-        "Admin-only view lists received admission submissions and allows marking them as reviewed/archived."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/Admissions/AdmissionsPage.tsx",
-          "operation": "create",
-          "description": "Create the Admissions page with a student submission form (name, contact method with phone/email, selected course/interest area, notes). Submit via submitAdmissionRequest and show success/failure feedback in English. Where the backend only accepts an email field, map the chosen contact method into the submitted value in a clear, consistent way."
-        },
-        {
-          "path": "frontend/src/pages/Admin/AdminAdmissionsPage.tsx",
-          "operation": "create",
-          "description": "Create an admin-only admissions submissions page (rendered behind AdminGuard) that lists received admission requests (getAllAdmissionRequests) and provides an action to mark as archived/reviewed by invoking the available backend capability (e.g., deleteAdmissionRequest as an archive action) with appropriate confirmation UI."
-        },
-        {
-          "path": "frontend/src/hooks/admissions/useSubmitAdmission.ts",
-          "operation": "create",
-          "description": "Add a React Query mutation hook for submitting admission requests and returning success/failure state for the Admissions page."
-        },
-        {
-          "path": "frontend/src/hooks/admissions/useAdmissionRequests.ts",
-          "operation": "create",
-          "description": "Add React Query hooks for admin-only admissions listing and archive action, including query invalidation after actions."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wire the Admissions student page route into the app router and ensure navigation links to it. Wire the Admin Admissions page route under the Admin area."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Add a Contact page with easy-to-copy and click-to-email/call contact info in English.",
-      "acceptanceCriteria": [
-        "A Contact page exists and is reachable from navigation.",
-        "Contact details are presented in English with placeholders that are easy to update (phone, email, address and/or social links).",
-        "Email links use mailto: and phone uses tel: where applicable."
+        "On /contact, the WhatsApp number 9889144312 is shown as a distinct contact method labeled in English as “WhatsApp”.",
+        "On /contact, the phone number 9838784245 is shown as a distinct contact method labeled in English as “Phone”.",
+        "Both numbers have a visible “Copy” action that copies the correct number to the clipboard and shows a success toast message in English.",
+        "The phone number uses a working tel: link (clicking it opens the device dialer on supported devices/browsers).",
+        "The WhatsApp number uses a working WhatsApp deep link (e.g., wa.me or https://api.whatsapp.com) that opens WhatsApp (or WhatsApp Web) on supported devices/browsers."
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/Contact/ContactPage.tsx",
-          "operation": "create",
-          "description": "Create a Contact page with clearly labeled placeholders for phone, email, address, and optional social links, using tel: and mailto: actions where applicable. Provide an easy copy-to-clipboard interaction for key fields (phone/email)."
-        },
-        {
-          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Add the Contact route to the router and ensure it is accessible from the primary navigation."
+          "description": "Update the Contact page UI to include two distinct primary contact cards: “WhatsApp” (number 9889144312 with a working WhatsApp deep link such as wa.me/api.whatsapp.com) and “Phone” (number 9838784245 with a working tel: link). Add separate “Copy” actions for both numbers that copy the correct value and trigger an English success toast via the existing notification system. Use the existing shadcn-ui Card/Button components to keep styling consistent; verify the component's usage instructions before implementing."
         }
       ]
     },
     {
-      "id": "REQ-6",
-      "summary": "Apply a cohesive educational/coaching brand theme (non blue/purple-dominant) with consistent typography, spacing, and component styling across pages.",
+      "id": "REQ-10",
+      "summary": "Remove any placeholder phone number from /contact so only the provided WhatsApp and Phone numbers are presented as primary contacts.",
       "acceptanceCriteria": [
-        "All pages share consistent header/footer styling, typography scale, and color palette.",
-        "The theme does not rely on a default/unstyled look; it is clearly intentional and consistent.",
-        "Theme avoids a blue/purple-dominant palette unless explicitly needed for contrast/accessibility."
+        "The previously hardcoded placeholder phone number is no longer displayed as the main contact phone on /contact.",
+        "No other placeholder contact numbers are presented as primary contact options on /contact."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/index.css",
-          "operation": "create",
-          "description": "Create global styles and Tailwind layer configuration for a cohesive theme (e.g., warm/neutral educational palette, consistent typography scale, spacing, and surfaces). Ensure defaults are not unstyled and avoid a blue/purple-dominant palette."
-        },
-        {
-          "path": "frontend/src/components/layout/SiteLayout.tsx",
+          "path": "frontend/src/pages/Contact/ContactPage.tsx",
           "operation": "modify",
-          "description": "Ensure the shared header/footer styling and page container spacing consistently apply the theme across all routes. Use shadcn-ui components where appropriate for consistent styling. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "summary": "Add PWA basics: manifest + installable icon(s) and metadata so the app can be installed and launched without broken routing.",
-      "acceptanceCriteria": [
-        "App includes a web manifest and icons so modern browsers can offer an install option.",
-        "The app has a proper app title and icons when installed.",
-        "Core pages remain functional when accessed from an installed shortcut (no broken routing)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/manifest.webmanifest",
-          "operation": "create",
-          "description": "Add a web manifest defining app name/title, start_url, display mode, theme/background colors, and icon entries referencing the generated logo asset at frontend/public/assets/generated/keep-going-classes-logo.dim_512x512.png."
-        },
-        {
-          "path": "frontend/index.html",
-          "operation": "modify",
-          "description": "Link the manifest (frontend/public/manifest.webmanifest) and add appropriate PWA meta (e.g., theme-color) so install prompts show correct name/icon and the installed experience uses correct metadata."
-        },
-        {
-          "path": "frontend/public/assets/generated/keep-going-classes-logo.dim_512x512.png",
-          "operation": "create",
-          "description": "Add the generated logo asset as a static PWA icon source. (Generated image) Ensure the manifest references this exact file path."
-        }
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "summary": "Add a Home page describing Keep Going Classes (academics + competitive exam prep) with strong calls to action for Articles and Admissions plus a brief contact/join highlight.",
-      "acceptanceCriteria": [
-        "Home page includes an English description of the channel/academy focus.",
-        "Home page includes prominent links/buttons to Articles and Admissions.",
-        "Home page includes a brief section highlighting how to contact/join."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/Home/HomePage.tsx",
-          "operation": "create",
-          "description": "Create a Home page with English description of academics + competitive exam preparation, prominent CTAs to Articles and Admissions, and a short \"How to join/contact\" section. Visually anchor the page using the generated hero banner at frontend/public/assets/generated/keep-going-classes-hero.dim_1600x600.png and use the generated icon set at frontend/public/assets/generated/kgc-icons-set.dim_512x512.png for feature highlights."
-        },
-        {
-          "path": "frontend/public/assets/generated/keep-going-classes-hero.dim_1600x600.png",
-          "operation": "create",
-          "description": "Add the generated wide hero banner illustration asset for the Home page. (Generated image) Ensure the Home page references this exact file path."
-        },
-        {
-          "path": "frontend/public/assets/generated/kgc-icons-set.dim_512x512.png",
-          "operation": "create",
-          "description": "Add the generated outline icons set for Articles/Admissions/Contact highlights. (Generated image) Ensure the Home page references this exact file path."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wire the Home route as the default route and ensure primary navigation includes Home."
+          "description": "Replace the current placeholder phone value (e.g., “+91 98765 43210”) and any other placeholder primary contact numbers in the main contact section so the only primary phone/WhatsApp contacts shown are WhatsApp: 9889144312 and Phone: 9838784245. Verify the component's usage instructions before implementing."
         }
       ]
     }

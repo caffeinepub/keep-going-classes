@@ -9,7 +9,7 @@
   "frontend/src/pages/Articles/ArticlesListPage.tsx": "Articles listing page displaying all published articles in a card grid with loading states and navigation to article details.",
   "frontend/src/pages/Articles/ArticleDetailPage.tsx": "Article detail page showing full article content with title, author, and back navigation.",
   "frontend/src/pages/Admissions/AdmissionsPage.tsx": "Public admissions form page where students can submit applications with name, email, program selection, and motivation statement.",
-  "frontend/src/pages/Contact/ContactPage.tsx": "Contact page displaying phone, email, address with copy-to-clipboard functionality and social media links.",
+  "frontend/src/pages/Contact/ContactPage.tsx": "Contact page displaying WhatsApp (9889144312), Phone (9838784245), email, and address with copy-to-clipboard functionality, working deep links for WhatsApp and phone dialer, and social media links.",
   "frontend/src/pages/Admin/AdminDashboardPage.tsx": "Admin dashboard with navigation cards to manage articles and admission requests.",
   "frontend/src/pages/Admin/AdminArticlesPage.tsx": "Admin page for managing articles with create, edit, publish/unpublish, and delete functionality using dialogs and alerts.",
   "frontend/src/pages/Admin/AdminAdmissionsPage.tsx": "Admin page for viewing and archiving admission requests with confirmation dialogs.",
